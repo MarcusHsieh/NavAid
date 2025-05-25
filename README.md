@@ -40,6 +40,11 @@ rviz2
 ros2 run imu_driver imu_subscriber
 ```
 
+> Terminal 5 OR separate computer - Camera
+```bash
+ros2 launch csi_camera_cpp csi_camera_ipc.launch.py detection_frame_skip:=4 publish_annotated_image:=false
+```
+
 # Misc
 
 > RTPS Error Debug
