@@ -46,3 +46,9 @@ ros2 run imu_driver imu_subscriber
 ```bash
 sudo rm -f /dev/shm/fastrtps*
 ```
+> cap.read() error
+```bash
+sudo systemctl <status|restart> nvargus-daemon
+
+gst-launch-1.0 nvarguscamerasrc ! fakesink
+```
