@@ -1,1 +1,0 @@
-csi_camera_cpp 0.0.0 C++ ROS2 package to publish CSI camera stream using GStreamer on Jetson Nano mj MIT ament_cmake rclcpp cv_bridge sensor_msgs vision_msgs opencv-dev rclcpp_components ament_index_cpp ament_lint_auto ament_lint_common ament_cmake

@@ -1,0 +1,6 @@
+[submodule "ldlidar_sl_ros2"]
+	path = ldlidar_sl_ros2
+	url = git@github.com:MarcusHsieh/ldlidar_sl_ros2.git
+[submodule "src/ldlidar_sl_ros2"]
+	path = src/ldlidar_sl_ros2
+	url = git@github.com:MarcusHsieh/ldlidar_sl_ros2.git
