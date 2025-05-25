@@ -87,7 +87,7 @@ class NavaidProcessorNode(Node):
         marker.lifetime = rclpy.duration.Duration(seconds=0.5).to_msg()
         
         self.orientation_marker_publisher.publish(marker)
-        self.get_logger().info("Marker published.") 
+        # self.get_logger().info("Marker published.") 
 
     def normalize_angle_radians(self, angle_rad):
         while angle_rad > math.pi: angle_rad -= 2 * math.pi
