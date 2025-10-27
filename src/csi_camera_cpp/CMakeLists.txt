@@ -18,15 +18,24 @@ find_package(sensor_msgs REQUIRED)
 find_package(vision_msgs REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 find_package(OpenCV REQUIRED COMPONENTS core imgproc dnn highgui)
+find_package(CUDA REQUIRED)
 
 include_directories(include)
 include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(${rclcpp_components_INCLUDE_DIRS})
+include_directories(${CUDA_INCLUDE_DIRS})
+include_directories(/usr/include/aarch64-linux-gnu)
+
+# Add CUDA library directories
+link_directories(${CUDA_TOOLKIT_ROOT_DIR}/lib64)
+link_directories(/usr/local/cuda/targets/aarch64-linux/lib)
+link_directories(/usr/lib/aarch64-linux-gnu)
 
 add_library(${PROJECT_NAME}_nodes SHARED
   src/csi_camera_node.cpp
   src/image_viewer_node.cpp
   src/person_detector_node.cpp
+  src/tensorrt_inference.cpp
 )
 ament_target_dependencies(${PROJECT_NAME}_nodes
   rclcpp
@@ -39,6 +48,10 @@ ament_target_dependencies(${PROJECT_NAME}_nodes
 )
 target_link_libraries(${PROJECT_NAME}_nodes
   ${OpenCV_LIBRARIES}
+  ${CUDA_LIBRARIES}
+  nvinfer
+  nvonnxparser
+  cudart
 )
 
 rclcpp_components_register_nodes(${PROJECT_NAME}_nodes

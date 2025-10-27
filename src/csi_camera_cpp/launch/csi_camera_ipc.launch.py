@@ -9,6 +9,7 @@ def launch_setup(context, *args, **kwargs):
     run_detector = LaunchConfiguration('run_detector').perform(context).lower() == 'true'
     detection_frame_skip = int(LaunchConfiguration('detection_frame_skip').perform(context))
     publish_annotated_image = LaunchConfiguration('publish_annotated_image').perform(context).lower() == 'true'
+    confidence_threshold = float(LaunchConfiguration('confidence_threshold').perform(context))
 
     # parameters
     camera_node_params = [
@@ -47,7 +48,9 @@ def launch_setup(context, *args, **kwargs):
                     name='person_detector_node',
                     remappings=[('image_raw', '/image_raw')],
                     parameters=[
-                        {'detection_frame_skip': detection_frame_skip}
+                        {'detection_frame_skip': detection_frame_skip},
+                        {'confidence_threshold': confidence_threshold},
+                        {'publish_annotated_image': publish_annotated_image}
                     ],
                     extra_arguments=[{'use_intra_process_comms': True}]
             )
@@ -83,6 +86,11 @@ def generate_launch_description():
             'publish_annotated_image',
             default_value='false',
             description='Whether detector node should publish annotated image'
+        ),
+        DeclareLaunchArgument(
+            'confidence_threshold',
+            default_value='0.5',
+            description='Confidence threshold for detections (0.0-1.0, higher = fewer false positives)'
         ),
         OpaqueFunction(function=launch_setup)
     ])
